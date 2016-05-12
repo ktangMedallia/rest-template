@@ -1,0 +1,12 @@
+# top level ignore
+.gradle
+.project
+.settings/**
+
+# sub-project ignore
+*/.classpath
+*/.project
+*/.settings/**
+*/.gradle/**
+*/bin/**
+*/build/**
