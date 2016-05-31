@@ -1,20 +1,37 @@
 node {
-   // Checkout code from repository
-   stage 'Checkout'
-   checkout scm
+    
+    // Checkout code from repository
+    stage 'Checkout'
+    checkout scm
 
-   // Get the Gradle tool.
-   def gradleHome = tool 'GRADLE213'
+    // Get the Gradle tool.
+    def gradleHome = tool 'GRADLE213'
 
-   // Build codes with unit testing
-   stage 'Build and unit test'
-   sh "${gradleHome}/bin/gradle build"
+    // Build codes with unit testing
+    stage 'Build and unit test'
+    sh "${gradleHome}/bin/gradle build"
 
-   stage 'Construct integration manifest'
+    stage 'Construct integration manifest'
 
-   stage 'Set up integration environment'
+    stage 'Set up base integration environment'
+    parallel {
+        phase1: { echo 'Configure Express' },
+        phase2: { echo 'Configure Composition Layer' }
+    }
+    echo 'Configure District One'
 
-   stage 'Integration test'
+    stage 'Verify base integration environment'
+    echo 'Test and verify'
 
-   stage 'Publish manifest'
+    stage 'Deploy new version'
+    parallel (
+        phase1: { echo "Configure Express" },
+        phase2: { echo "Configure Composition Layer" },
+        phase3: { echo "Configure FE" },
+        phase4: { echo "Configure District One" }
+    )
+
+    stage 'Integration test'
+
+    stage 'Publish manifest'
 }
