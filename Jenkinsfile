@@ -10,4 +10,11 @@ node {
    stage 'Build and unit test'
    sh "${gradleHome}/bin/gradle build"
 
+   stage 'Construct integration manifest'
+
+   stage 'Set up integration environment'
+
+   stage 'Integration test'
+
+   stage 'Publish manifest'
 }
