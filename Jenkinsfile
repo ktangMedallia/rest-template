@@ -14,8 +14,10 @@ node {
     stage 'Construct integration manifest'
 
     stage 'Set up base integration environment'
-    echo "Configure Express"
-    echo "Configure Composition Layer"
+    parallel (
+        phasea1: { echo "Configure Express" },
+        phasea2: { echo "Configure Composition Layer" }
+    )
     echo 'Configure District One'
 
     stage 'Verify base integration environment'
